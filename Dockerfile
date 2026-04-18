@@ -17,4 +17,4 @@ COPY app ./app
 
 ENV PATH="/app/.venv/bin:$PATH"
 
-CMD ["python", "app/main.py"]
+CMD ["python", "app/langchain_rag.py"]

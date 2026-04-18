@@ -35,7 +35,7 @@ qa_chain = RetrievalQA.from_chain_type(
 )
 
 query = "Who Is Admin?"
-
+print(f"\nQuery: {splitter}")
 response = qa_chain.run(query)
 
 print("\nFinal Answer")

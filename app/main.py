@@ -12,24 +12,31 @@ chunks = chunk_text(document)
 
 store = build_store(chunks)
 
-query = "Who Is Admin?"
+query = "give me the name of admin?"
 
 results = search(query, store, top_k=3)
 
+print("\n--- RETRIEVED CHUNKS WITH SCORES ---")
+for i, (text, score) in enumerate(results, 1):
+    print(f"\n[Chunk {i}] (Score: {score:.4f})")
+    print(f"{text}")
+
 context = "\n".join([text for text, _ in results])
 
-print(f"\nRetrieving Context \n {context}")
+print(f"\n--- FINAL CONTEXT SENT TO LLM ---\n{context}")
 
-prompt = f"""
-Answer the Question Using Only the context below.
-    Context:
-    {context}
+prompt = f"""Use ONLY the context below to answer the question. 
+Respond ONLY with valid JSON in this exact format, no other text:
+{{
+  "answer": "your exact answer here"
+}}
 
-    Question:
-    {query}
+Context:
+{context}
 
-    Answer:
-"""
+Question: {query}
+
+JSON Response:"""
 
 print(prompt)
 response = ask_llm(prompt)
